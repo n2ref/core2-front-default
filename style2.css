@@ -1076,6 +1076,7 @@ table td.homeTD {
 	font-weight: normal;
 	overflow: hidden;
 	padding: 6px 0 0;
+	width: 100%;
 }
 
 .core-panel > .core-panel-body {
