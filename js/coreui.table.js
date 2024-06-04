@@ -10,14 +10,16 @@ CoreUI.table = {
     },
 
     preloader : {
+
         /**
          * @param resource
          */
         show : function(resource) {
+
             var wrapper = document.getElementById('table-' + resource + '-wrapper');
 
             if (wrapper) {
-                var nodes   = wrapper.childNodes;
+                var nodes = wrapper.childNodes;
                 for (var i = 0; i < nodes.length; i++) {
                     if (/(\\s|^)preloader(\\s|$)/.test(nodes[i].className)) {
                         nodes[i].style.display = 'block';
@@ -27,11 +29,13 @@ CoreUI.table = {
             }
         },
 
+
         /**
          * @param resource
          */
         hide : function(resource) {
             var wrapper = document.getElementById('table-' + resource + '-wrapper');
+
             if (wrapper) {
                 var nodes = wrapper.childNodes;
                 for (var i = 0; i < nodes.length; i++) {
@@ -85,7 +89,8 @@ CoreUI.table = {
             if (CoreUI.table.loc[resource]) {
                 if (isAjax) {
                     CoreUI.table.preloader.show(resource);
-                    container = document.getElementById("table-" + resource + "-wrapper").parentNode;
+                    var wrapper = document.getElementById("table-" + resource + "-wrapper");
+                    container   = wrapper ? wrapper.parentNode : null;
 
                     load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1&__clear=1', post, container, function () {
                         //CoreUI.table.preloader.hide(resource);
@@ -94,7 +99,9 @@ CoreUI.table = {
                     });
 
                 } else {
-                    load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, container, function () {
+                    var path = CoreUI.table._resetPathPage(resource);
+
+                    load(path, post, container, function () {
                         preloader.callback();
                         CoreUI.table._callEventReload(resource);
                     });
@@ -119,7 +126,9 @@ CoreUI.table = {
             if (CoreUI.table.loc[resource]) {
                 if (isAjax) {
                     //CoreUI.table.preloader.show(resource);
-                    container = document.getElementById("table-" + resource + "-wrapper").parentNode;
+
+                    var wrapper = document.getElementById("table-" + resource + "-wrapper");
+                    container   = wrapper ? wrapper.parentNode : null;
 
                     load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1&__search=1', post, container, function () {
                         //CoreUI.table.preloader.hide(resource);
@@ -128,7 +137,11 @@ CoreUI.table = {
                     });
 
                 } else {
-                    load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, container, function () {
+                    var path = CoreUI.table._resetPathPage(resource);
+
+                    console.log(path)
+
+                    load(path, post, container, function () {
                         preloader.callback();
                         CoreUI.table._callEventReload(resource);
                     });
@@ -154,7 +167,8 @@ CoreUI.table = {
             if (CoreUI.table.loc[resource]) {
                 if (isAjax) {
                     // CoreUI.table.preloader.show(resource);
-                    container = document.getElementById("table-" + resource + "-wrapper").parentNode;
+                    var wrapper = document.getElementById("table-" + resource + "-wrapper");
+                    container   = wrapper ? wrapper.parentNode : null;
 
                     load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1&__filter_clear=1', post, container, function () {
                         // CoreUI.table.preloader.hide(resource);
@@ -163,7 +177,9 @@ CoreUI.table = {
                     });
 
                 } else {
-                    load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, container, function () {
+                    var path = CoreUI.table._resetPathPage(resource);
+
+                    load(path, post, container, function () {
                         preloader.callback();
                         CoreUI.table._callEventReload(resource);
                     });
@@ -220,7 +236,8 @@ CoreUI.table = {
             if (CoreUI.table.loc[resource]) {
                 if (isAjax) {
                     CoreUI.table.preloader.show(resource);
-                    container = document.getElementById("table-" + resource + "-wrapper").parentNode;
+                    var wrapper = document.getElementById("table-" + resource + "-wrapper");
+                    container   = wrapper ? wrapper.parentNode : null;
 
                     load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1&__filter=1', post, container, function () {
                         CoreUI.table.preloader.hide(resource);
@@ -229,7 +246,8 @@ CoreUI.table = {
                     });
 
                 } else {
-                    load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, container, function () {
+                    var path = CoreUI.table._resetPathPage(resource);
+                    load(path, post, container, function () {
                         preloader.callback();
                         CoreUI.table._callEventReload(resource);
                     });
@@ -569,8 +587,8 @@ CoreUI.table = {
 
                             ul.append(
                                 '<table class="table table-condensed table-bordered table-hover" style="margin: 0">' +
-                                '<thead><tr>' + theadColumns.join('') + '</tr></thead>' +
-                                '<tbody></tbody>' +
+                                    '<thead><tr>' + theadColumns.join('') + '</tr></thead>' +
+                                    '<tbody></tbody>' +
                                 '</table>'
                             );
 
@@ -632,7 +650,6 @@ CoreUI.table = {
         }
     },
 
-
     columnSwitcher: {
 
         /**
@@ -692,7 +709,8 @@ CoreUI.table = {
             if (CoreUI.table.loc[resource]) {
                 if (isAjax) {
                     //CoreUI.table.preloader.show(resource);
-                    container = document.getElementById("table-" + resource + "-wrapper").parentNode;
+                    var wrapper = document.getElementById("table-" + resource + "-wrapper");
+                    container   = wrapper ? wrapper.parentNode : null;
 
                     load(CoreUI.table.loc[resource] + '&__filter=1', post, container, function () {
                         //CoreUI.table.preloader.hide(resource);
@@ -806,7 +824,9 @@ CoreUI.table = {
                             });
 
                         } else {
-                            load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', searchControls, '', function () {
+                            var path = CoreUI.table._resetPathPage(resource);
+
+                            load(path, searchControls, '', function () {
                                 preloader.hide();
                                 CoreUI.table._callEventReload(resource);
                             });
@@ -894,7 +914,9 @@ CoreUI.table = {
                     });
 
                 } else {
-                    load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, '', function () {
+                    var path = CoreUI.table._resetPathPage(resource);
+
+                    load(path, post, '', function () {
                         preloader.hide();
                         CoreUI.table._callEventReload(resource);
                     });
@@ -920,10 +942,11 @@ CoreUI.table = {
         if (isAjax) {
             //CoreUI.table.preloader.show(resource);
 
-            container = document.getElementById("table-" + resource + "-wrapper").parentNode;
+            var wrapper = document.getElementById("table-" + resource + "-wrapper");
+            container   = wrapper ? wrapper.parentNode : null;
 
             if (CoreUI.table.loc[resource].indexOf('&__') < 0) {
-                if (container.id) {
+                if (container && container.id) {
                     location.hash = preloader.prepare(location.hash.substr(1) + '&--' + container.id + '=' + preloader.toJson(CoreUI.table.loc[resource] + "&" + p));
                 }
 
@@ -954,10 +977,11 @@ CoreUI.table = {
         var p         = '_page_' + resource + '=' + $('#table-' + resource + '-gotopage').val();
 
         if (isAjax) {
-            container = document.getElementById("table-" + resource + "-wrapper").parentNode;
+            var wrapper = document.getElementById("table-" + resource + "-wrapper");
+            container   = wrapper ? wrapper.parentNode : null;
 
             if (CoreUI.table.loc[resource].indexOf('&__') < 0) {
-                if (container.id) {
+                if (container && container.id) {
                     location.hash = preloader.prepare(location.hash.substr(1) + '&--' + container.id + '=' + preloader.toJson(CoreUI.table.loc[resource] + "&" + p));
                 }
             } else {
@@ -990,7 +1014,9 @@ CoreUI.table = {
 
         if (isAjax) {
             //CoreUI.table.preloader.show(resource);
-            container = document.getElementById("table-" + resource + "-wrapper").parentNode;
+
+            var wrapper = document.getElementById("table-" + resource + "-wrapper");
+            container   = wrapper ? wrapper.parentNode : null;
 
             load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1&__order=1', post, container, function () {
                 //CoreUI.table.preloader.hide(resource);
@@ -1001,7 +1027,9 @@ CoreUI.table = {
             preloader.hide();
 
         } else {
-            load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, container, function () {
+            var path = this._resetPathPage(resource);
+
+            load(path, post, container, function () {
                 preloader.callback();
                 CoreUI.table._callEventReload(resource);
             });
@@ -1019,7 +1047,8 @@ CoreUI.table = {
         if (isAjax) {
             CoreUI.table.preloader.show(resource);
 
-            var container = document.getElementById("table-" + resource + "-wrapper").parentNode;
+            var wrapper = document.getElementById("table-" + resource + "-wrapper");
+            container   = wrapper ? wrapper.parentNode : null;
 
             load(CoreUI.table.loc[resource], {}, container, function () {
                 CoreUI.table.preloader.hide(resource);
@@ -1149,7 +1178,8 @@ CoreUI.table = {
 
                         if (isAjax) {
                             CoreUI.table.preloader.show(resource);
-                            container = document.getElementById("table-" + resource + "-wrapper").parentNode;
+                            var wrapper = document.getElementById("table-" + resource + "-wrapper");
+                            container   = wrapper ? wrapper.parentNode : null;
                         }
 
                         $.ajax({
@@ -1343,7 +1373,7 @@ CoreUI.table = {
      */
     toggleExpandColumn : function (resource, rowNmbr, url, isAjax) {
 
-        this.toggleExpandRowUrl(resource, rowNmbr, url);
+        this.toggleExpandRowUrl(resource, rowNmbr, url, isAjax);
     },
 
 
@@ -1352,9 +1382,10 @@ CoreUI.table = {
      * @param resource
      * @param rowNmbr
      * @param url
+     * @param isAjax
      * @param isRebuild
      */
-    toggleExpandRowUrl : function (resource, rowNmbr, url, isRebuild) {
+    toggleExpandRowUrl : function (resource, rowNmbr, url, isAjax, isRebuild) {
 
         var hash   = this.crc32(url);
         var row    = $('#table-' + resource + ' > tbody > tr.row-table').eq(rowNmbr);
@@ -1374,7 +1405,11 @@ CoreUI.table = {
         }
 
         if (isLoad) {
-            preloader.show();
+            if (isAjax) {
+                CoreUI.table.preloader.show(resource);
+            } else {
+                preloader.show();
+            }
 
             $.ajax({
                 method : 'get',
@@ -1386,11 +1421,20 @@ CoreUI.table = {
                         .addClass('row-expand-name-' + hash)
                         .show('fast');
 
-                    preloader.hide();
+                    if (isAjax) {
+                        CoreUI.table.preloader.hide(resource);
+                    } else {
+                        preloader.hide();
+                    }
                 },
-                error  : function () {
+                error : function () {
                     CoreUI.notice.create('Ошибка получения содержимого', 'danger');
-                    preloader.hide();
+
+                    if (isAjax) {
+                        CoreUI.table.preloader.hide(resource);
+                    } else {
+                        preloader.hide();
+                    }
                 }
             });
         }
@@ -1476,12 +1520,16 @@ CoreUI.table = {
 
         if (isAjax) {
             //CoreUI.table.preloader.show(resource);
-            container = document.getElementById("table-" + resource + "-wrapper").parentNode;
+            var wrapper = document.getElementById("table-" + resource + "-wrapper");
+            container   = wrapper ? wrapper.parentNode : null;
         }
 
         var post = {};
         post['count_' + resource] = select.value;
-        load(CoreUI.table.loc[resource] + '&_page_' + resource + '=1', post, container, function () {
+
+        var path = this._resetPathPage(resource);
+
+        load(path, post, container, function () {
             //CoreUI.table.preloader.hide(resource);
             preloader.callback();
             CoreUI.table._callEventReload(resource);
@@ -1498,6 +1546,28 @@ CoreUI.table = {
     _isObject: function (variable) {
 
         return typeof variable === 'object' && variable !== null && ! Array.isArray(variable);
+    },
+
+
+    /**
+     * Очистка номера страницы в адресе
+     * @param resource
+     * @return path
+     * @private
+     */
+    _resetPathPage: function(resource) {
+
+        var path      = 'index.php#' + CoreUI.table.loc[resource];
+        var pageParam = '_page_' + resource;
+
+        if (path.indexOf(pageParam) >= 0) {
+            var regexp = new RegExp('&' + pageParam + '=\\d+', 'g');
+            path = path.replace(regexp, '');
+
+            window.history.pushState({ path: path }, '', path);
+        }
+
+        return path;
     }
 };
 
